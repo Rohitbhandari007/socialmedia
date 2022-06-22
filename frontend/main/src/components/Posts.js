@@ -3,9 +3,8 @@ import PostItem from './PostItem'
 
 function Posts() {
     return (
-        <div className='w-full ml-20 mt-5'>
+        <div className='w-full'>
 
-            <PostItem />
             <PostItem />
         </div>
     )

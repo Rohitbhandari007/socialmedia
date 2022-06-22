@@ -2,7 +2,7 @@ import React from 'react'
 
 function Rsidebar() {
     return (
-        <aside class="fixed right-0 h-screen w-64 mr-10 border-l-2 border-[#ded9d9] " aria-label="Sidebar">
+        <aside class="fixed right-0 h-screen w-64 bg-[#fff] border-l-2 border-[#dbe6f3] " aria-label="Sidebar">
             <div class="overflow-y-auto py-12 px-3 bg-white-500 rounded dark:bg-seto-800">
                 <ul class="space-y-5">
                     <li class="flex items-center">
@@ -10,8 +10,8 @@ function Rsidebar() {
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 ml-16 cursor-pointer text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                             <path strokeLinecap="round" strokeLinejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
                         </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 ml-10 cursor-pointer text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M8 4H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-2m-4-1v8m0 0l3-3m-3 3L9 8m-5 5h2.586a1 1 0 01.707.293l2.414 2.414a1 1 0 00.707.293h3.172a1 1 0 00.707-.293l2.414-2.414a1 1 0 01.707-.293H20" />
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 ml-12 cursor-pointer text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
                         </svg>
 
                     </li>
