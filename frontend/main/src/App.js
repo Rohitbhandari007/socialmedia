@@ -7,7 +7,7 @@ function App() {
   return (
     <div className="App">
 
-      <div class="navcontainer">
+      <div class="navcontainer relative grid grid-flow-col w-4/5">
         <Nav />
         <Feeds />
         <Rsidebar />

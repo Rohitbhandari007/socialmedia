@@ -2,7 +2,7 @@ import React from 'react'
 
 function Nav() {
    return (
-      <aside class="w-64 border-r-2 border-[#000]" aria-label="Sidebar">
+      <aside class="fixed w-64 border-r-2 border-[#ded9d9]" aria-label="Sidebar">
          <div class="overflow-y-auto py-20 px-3 bg-gray-50 rounded dark:bg-white">
             <ul class="space-y-10 space-x-12">
                <li>

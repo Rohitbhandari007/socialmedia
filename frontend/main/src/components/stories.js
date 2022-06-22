@@ -9,7 +9,7 @@ import sh from './image/sh.jpg';
 
 function Stories() {
     return (
-        <div class="max-w-full mx-auto p-8 border-b-2 border-[#000]">
+        <div class="max-w-full mx-12 p-8 border-b-2 border-[#ded9d9]">
             <ul class="flex space-x-6 font-serif ">
 
                 <li class="flex flex-col items-center space-y-1 relative">

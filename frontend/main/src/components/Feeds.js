@@ -4,7 +4,7 @@ import Posts from './Posts'
 
 function Feeds() {
     return (
-        <div>
+        <div className='w-2/3 mx-64'>
 
             <Stories />
             <Posts />
