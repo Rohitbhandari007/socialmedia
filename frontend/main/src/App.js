@@ -1,11 +1,19 @@
 import './App.css';
+import Nav from './components/Sidebar';
+import Rsidebar from './components/Rsidebar';
+import Feeds from './components/Feeds';
 
 function App() {
   return (
     <div className="App">
-        <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
+
+      <div class="navcontainer">
+        <Nav />
+        <Feeds />
+        <Rsidebar />
+      </div>
+
+
     </div>
   );
 }
