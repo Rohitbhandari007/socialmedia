@@ -3,9 +3,9 @@ import React from 'react'
 function Nav() {
    return (
       <div className=''>
-         <aside class="h-screen left-0 fixed w-64 border-r-2 border-[#dbe6f3]" aria-label="Sidebar">
+         <aside class="h-screen left-0 fixed w-64 border-r-2 border-[#dbe6f3] font-sans" aria-label="Sidebar">
             <div className='bg-[#fff]'>
-               <a href="#" class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-black hover:bg-gray-100 dark:hover:bg-[#a974ff]">
+               <a href="#" class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-black">
                   <svg
                      class="h-6 w-6 text-indigo-500 mt-2"
                      xmlns="http://www.w3.org/2000/svg"

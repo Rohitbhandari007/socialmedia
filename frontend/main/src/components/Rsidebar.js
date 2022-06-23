@@ -2,7 +2,7 @@ import React from 'react'
 
 function Rsidebar() {
     return (
-        <aside class="fixed right-0 h-screen w-64 bg-[#fff] border-l-2 border-[#dbe6f3] " aria-label="Sidebar">
+        <aside class="fixed right-0 h-screen w-72 bg-[#fff] border-l-2 border-[#dbe6f3] " aria-label="Sidebar">
             <div class="overflow-y-auto py-12 px-3 bg-white-500 rounded dark:bg-seto-800">
                 <ul class="space-y-5">
                     <li class="flex items-center">
