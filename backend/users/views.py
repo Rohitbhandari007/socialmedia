@@ -1,4 +1,3 @@
-from os import stat
 from rest_framework.response import Response
 from rest_framework import status
 from users.serializers import UserRegestrationSerializer, UserLoginSerializer, UserProfileSerializer
@@ -9,12 +8,12 @@ from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth import authenticate
 
 
-#Custom tokens
+# Custom tokens
 def get_tokens_for_user(user):
     refresh = RefreshToken.for_user(user)
     return{
-        'refresh':str(refresh),
-        'access':str(refresh.access_token),
+        'refresh': str(refresh),
+        'access': str(refresh.access_token),
     }
 
 
@@ -26,10 +25,12 @@ class UserRegestrationView(APIView):
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
         token = get_tokens_for_user(user)
-        return Response({'token':token,'Messege':'Regestration succesful'},status.HTTP_201_CREATED)
+        return Response({'token': token, 'Messege': 'Regestration succesful'}, status.HTTP_201_CREATED)
+
 
 class UserLoginView(APIView):
     renderer_classes = [UserRenderer]
+
     def post(self, request, format=None):
         serializer = UserLoginSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -39,9 +40,9 @@ class UserLoginView(APIView):
 
         if user is not None:
             token = get_tokens_for_user(user)
-            return Response({'token':token,'messege':'Login success'}, status=status.HTTP_200_OK)
+            return Response({'token': token, 'messege': 'Login success'}, status=status.HTTP_200_OK)
         else:
-            return Response({'errors':{'non_field_errors':['Email or Password is not Valid']}}, status=status.HTTP_404_NOT_FOUND)
+            return Response({'errors': {'non_field_errors': ['Email or Password is not Valid']}}, status=status.HTTP_404_NOT_FOUND)
 
 
 class UserProfileView(APIView):

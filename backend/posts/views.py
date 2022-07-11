@@ -2,6 +2,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
+from rest_framework.permissions import IsAuthenticated
 
 from .models import Post
 from .serializers import PostSerializer
@@ -9,7 +10,6 @@ from .serializers import PostSerializer
 
 @api_view(['GET'])
 def home(request):
-
 
     posts = Post.objects.all()
     serializer = PostSerializer(posts, many=True)
@@ -25,12 +25,13 @@ class PostView(APIView):
         return Response(serializer.data)
 
 
+class LikeUnlikePost(APIView):
 
-@api_view(['POST'])
-def like_unlike_post(request):
-    if request.method == 'POST':
+    def post(self, request):
         pk = request.data.get('pk')
         post = get_object_or_404(Post, id=pk)
+
+        print(request.user)
 
         if request.user in post.liked.all():
             liked = False
@@ -43,4 +44,3 @@ def like_unlike_post(request):
             'liked': liked,
             'count': post.like_count
         })
-
