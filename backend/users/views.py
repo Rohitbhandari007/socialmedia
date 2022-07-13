@@ -7,8 +7,11 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth import authenticate
 
+from .models import User
 
 # Custom tokens
+
+
 def get_tokens_for_user(user):
     refresh = RefreshToken.for_user(user)
     return{
@@ -52,3 +55,24 @@ class UserProfileView(APIView):
     def get(self, request, format=None):
         serializer = UserProfileSerializer(request.user)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class FollowUnfollow(APIView):
+    def post(self, request):
+        username = request.data.get('username')
+        myprofile = request.user
+        obj = User.objects.get(username=username)
+
+        if obj in myprofile.following.all():
+            myprofile.following.remove(obj)
+            return Response({'follow': False,
+                            'followers': obj.followed.count(),
+                             'username': username,
+                             'state': 'Follow'
+                             })
+        else:
+            myprofile.following.add(obj)
+            return Response({'follow': True,
+                             'followers': obj.followed.count(),
+                             'state': 'UnFollow'}
+                            )
