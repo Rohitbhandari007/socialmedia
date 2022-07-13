@@ -1,9 +1,15 @@
-from django.urls import path
-from .views import home, PostView, LikeUnlikePost
+from django.urls import path, include
+from .views import home, PostViewSet, LikeUnlikePost
+from rest_framework.routers import DefaultRouter
+
+
+router = DefaultRouter()
+router.register(r"posts", PostViewSet, basename="post")
+
 
 urlpatterns = [
     path('', home, name='home'),
-    path('posts/', PostView.as_view(), name='posts'),
+    path('', include(router.urls)),
     path('like-unlike/', LikeUnlikePost.as_view(), name='like-unlike')
 
 ]

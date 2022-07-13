@@ -14,3 +14,12 @@ class PostSerializer(serializers.ModelSerializer):
 
     def get_like_count(self, obj):
         return obj.liked.count()
+
+
+class PostViewSetSerializer(serializers.ModelSerializer):
+
+    author = UserSerializer(read_only=True)
+
+    class Meta:
+        model = Post
+        fields = '__all__'
