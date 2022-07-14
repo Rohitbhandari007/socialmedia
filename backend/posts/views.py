@@ -3,7 +3,7 @@ from rest_framework.decorators import api_view
 from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
 from rest_framework.permissions import IsAuthenticated
-from rest_framework import viewsets
+from rest_framework import viewsets, status
 
 from .models import Post
 from .serializers import PostSerializer, PostViewSetSerializer
@@ -32,14 +32,13 @@ class PostViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
 
-    def perform_destroy(self, instance):
-
-        current_user = self.request.user.id
-        post_id = self.request.data.get('post_id')
-        print(current_user)
-        print(current_user.post)
-        print(post_id)
-        instance.delete()
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        self.perform_destroy(instance)
+        messege = {"messege": "deleted item"}
+        postid = self.get_object.id
+        print(instance)
+        return Response(messege, status=status.HTTP_204_NO_CONTENT)
 
 
 class LikeUnlikePost(APIView):
