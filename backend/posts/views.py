@@ -47,6 +47,8 @@ class LikeUnlikePost(APIView):
         pk = request.data.get('pk')
         post = get_object_or_404(Post, id=pk)
 
+        print("hello")
+
         print(request.user)
 
         if request.user in post.liked.all():
@@ -58,5 +60,6 @@ class LikeUnlikePost(APIView):
 
         return Response({
             'liked': liked,
-            'count': post.like_count
+            'count': post.like_count,
+
         })

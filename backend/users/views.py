@@ -1,6 +1,6 @@
 from rest_framework.response import Response
 from rest_framework import status
-from users.serializers import UserRegestrationSerializer, UserLoginSerializer, UserProfileSerializer, UserChangePasswordSerializer, SendPasswordResetEmailSerializer, UserPasswordResetSerializer
+from users.serializers import UserRegestrationSerializer, UserLoginSerializer, UserProfileSerializer, UserChangePasswordSerializer, SendPasswordResetEmailSerializer, UserPasswordResetSerializer, UserSerializer
 from rest_framework.views import APIView
 from users.renderers import UserRenderer
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -54,6 +54,17 @@ class UserProfileView(APIView):
 
     def get(self, request, format=None):
         serializer = UserProfileSerializer(request.user)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class SuggestionsView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, format=None):
+        users = User.objects.exclude(username=request.user.username)
+        users = users.exclude(id__in=request.user.following.all())[:5]
+        serializer = UserSerializer(
+            users, many=True, context={'request': request})
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
