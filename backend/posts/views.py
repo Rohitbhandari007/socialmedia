@@ -12,7 +12,7 @@ from .serializers import PostSerializer, PostViewSetSerializer
 @api_view(['GET'])
 def home(request):
 
-    posts = Post.objects.all()
+    posts = Post.objects.all().order_by('-id')
     serializer = PostSerializer(posts, many=True)
 
     return Response(serializer.data)
@@ -20,12 +20,12 @@ def home(request):
 
 class PostViewSet(viewsets.ModelViewSet):
 
-    queryset = Post.objects.all()
+    queryset = Post.objects.all().order_by('-id')
     serializer_class = PostViewSetSerializer
     permission_classes = [OnlyAuthor]
 
     def list(self, request):
-        queryset = Post.objects.all()
+        queryset = Post.objects.all().order_by('-id')
         serializer = PostViewSetSerializer(queryset, many=True)
         return Response(serializer.data)
 

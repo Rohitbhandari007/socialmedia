@@ -63,7 +63,7 @@ class SuggestionsView(APIView):
     def get(self, request, format=None):
         users = User.objects.exclude(username=request.user.username)
         users = users.exclude(id__in=request.user.following.all())[:5]
-        serializer = UserSerializer(
+        serializer = UserProfileSerializer(
             users, many=True, context={'request': request})
         return Response(serializer.data, status=status.HTTP_200_OK)
 
