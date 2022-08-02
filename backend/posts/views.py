@@ -10,9 +10,9 @@ from .serializers import PostSerializer, PostViewSetSerializer
 
 
 @api_view(['GET'])
-def home(request):
+def profilePost(request):
 
-    posts = Post.objects.all().order_by('-id')
+    posts = Post.objects.filter(author=request.user).order_by('-id')
     serializer = PostSerializer(posts, many=True)
 
     return Response(serializer.data)
@@ -24,14 +24,10 @@ class PostViewSet(viewsets.ModelViewSet):
     serializer_class = PostSerializer
     permission_classes = [OnlyAuthor]
 
-    # def get_serializer_context(self):
-    #     context = super().get_serializer_context()
-    #     context["request"] = self.request
-    #     return context
-
     def list(self, request):
         queryset = Post.objects.all().order_by('-id')
-        serializer = PostSerializer(queryset, many=True)
+        context = {'user': self.request.user}
+        serializer = PostSerializer(queryset, context=context, many=True)
         return Response(serializer.data)
 
     def perform_create(self, serializer):
@@ -40,9 +36,7 @@ class PostViewSet(viewsets.ModelViewSet):
     def destroy(self, request, *args, **kwargs):
         instance = self.get_object()
         self.perform_destroy(instance)
-
         message = {'Messege': 'Item deleted succesfully'}
-
         return Response(message, status=status.HTTP_204_NO_CONTENT)
 
 

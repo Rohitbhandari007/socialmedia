@@ -8,7 +8,7 @@ class PostSerializer(serializers.ModelSerializer):
     author = UserProfileSerializer(read_only=True)
     like_count = serializers.SerializerMethodField(read_only=True)
     liked = UserSerializer(many=True, read_only=True)
-    # iliked = serializers.SerializerMethodField(read_only=True)
+    iliked = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = Post
@@ -17,10 +17,8 @@ class PostSerializer(serializers.ModelSerializer):
     def get_like_count(self, obj):
         return obj.liked.count()
 
-    # def get_iliked(self, obj):
-    #     print('user liked :', obj.liked.all())
-    #     print('me is ', self.context.get('request').user)
-    #     return True if self.context.get('request').user in obj.liked.all() else False
+    def get_iliked(self, obj):
+        return True if self.context.get('user') in obj.liked.all() else False
 
 
 class PostViewSetSerializer(serializers.ModelSerializer):
