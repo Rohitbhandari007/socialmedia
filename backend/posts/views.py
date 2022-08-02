@@ -13,8 +13,8 @@ from .serializers import PostSerializer, PostViewSetSerializer
 def profilePost(request):
 
     posts = Post.objects.filter(author=request.user).order_by('-id')
-    serializer = PostSerializer(posts, many=True)
-
+    context = {'user': request.user}
+    serializer = PostSerializer(posts, context=context, many=True)
     return Response(serializer.data)
 
 
