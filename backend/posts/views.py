@@ -21,12 +21,17 @@ def home(request):
 class PostViewSet(viewsets.ModelViewSet):
 
     queryset = Post.objects.all().order_by('-id')
-    serializer_class = PostViewSetSerializer
+    serializer_class = PostSerializer
     permission_classes = [OnlyAuthor]
+
+    # def get_serializer_context(self):
+    #     context = super().get_serializer_context()
+    #     context["request"] = self.request
+    #     return context
 
     def list(self, request):
         queryset = Post.objects.all().order_by('-id')
-        serializer = PostViewSetSerializer(queryset, many=True)
+        serializer = PostSerializer(queryset, many=True)
         return Response(serializer.data)
 
     def perform_create(self, serializer):
