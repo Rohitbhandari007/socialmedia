@@ -11,6 +11,8 @@ class UserModelAdmin(BaseUserAdmin):
         ('Personal info', {'fields': ('username', 'terms')}),
         ('Permissions', {'fields': ('is_admin',)}),
         ('Following', {'fields': ('following',)}),
+        ('Images', {'fields': ('profile_image', 'cover_image',)}),
+
 
     )
     # add_fieldsets is not a standard ModelAdmin attribute. UserModelAdmin

@@ -54,7 +54,9 @@ class User(AbstractBaseUser):
     following = models.ManyToManyField(
         "self", symmetrical=False, related_name="followed", blank=True)
     bio = models.TextField(blank=True, default="")
-
+    profile_image = models.ImageField(
+        default='default.png', upload_to='avatars')
+    cover_image = models.ImageField(default='default.jpg', upload_to='avatars')
     objects = UserManager()
 
     USERNAME_FIELD = 'username'

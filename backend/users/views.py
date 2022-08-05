@@ -6,9 +6,9 @@ from users.renderers import UserRenderer
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth import authenticate
-
+from rest_framework.filters import SearchFilter
 from .models import User
-
+from rest_framework.generics import ListAPIView
 # Custom tokens
 
 
@@ -57,6 +57,26 @@ class UserProfileView(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
+class UserListView(ListAPIView):
+    renderer_classes = [UserRenderer]
+    permission_classes = [IsAuthenticated]
+    serializer_class = UserProfileSerializer
+    queryset = User.objects.all()
+    filter_backends = [SearchFilter]
+    search_fields = ['^username']
+
+
+class UserPublicProfileView(APIView):
+    renderer_classes = [UserRenderer]
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, format=None):
+        username = request.data.get('username')
+        obj = User.objects.get(username=username)
+        serializer = UserProfileSerializer(obj)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
 class SuggestionsView(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -64,7 +84,7 @@ class SuggestionsView(APIView):
         users = User.objects.exclude(username=request.user.username)
         users = users.exclude(id__in=request.user.following.all())[:5]
         serializer = UserProfileSerializer(
-            users, many=True, context={'request': request})
+            users, many=True, context={'request': request, 'user': request.user})
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 

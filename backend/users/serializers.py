@@ -42,16 +42,21 @@ class UserLoginSerializer(serializers.ModelSerializer):
 class UserProfileSerializer(serializers.ModelSerializer):
     followers = serializers.SerializerMethodField(read_only=True)
     following = serializers.SerializerMethodField(read_only=True)
+    ifollow = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = User
-        fields = ['id', 'email', 'username', 'followers', 'following']
+        fields = ['id', 'email', 'username',
+                  'followers', 'following', 'ifollow', 'profile_image', 'cover_image']
 
     def get_followers(self, obj):
         return obj.followed.count()
 
     def get_following(self, obj):
         return obj.following.count()
+
+    def get_ifollow(self, obj):
+        return True if self.context.get('user') in obj.following.all() else False
 
 
 class UserChangePasswordSerializer(serializers.Serializer):
