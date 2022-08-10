@@ -72,8 +72,10 @@ class UserPublicProfileView(APIView):
 
     def post(self, request, format=None):
         username = request.data.get('username')
-        obj = User.objects.get(username=username)
-        serializer = UserProfileSerializer(obj)
+        user = User.objects.get(username=username)
+        context = {'user': self.request.user}
+
+        serializer = UserProfileSerializer(user, context=context)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 

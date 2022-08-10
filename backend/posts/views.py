@@ -22,9 +22,10 @@ class UserProfilePostView(APIView):
 
     def post(self, request):
         uid = request.data.get('uid')
-        print(uid)
         posts = Post.objects.filter(author=uid).order_by('-id')
-        serializer = PostSerializer(posts, many=True)
+        context = {'user': request.user}
+
+        serializer = PostSerializer(posts, context=context, many=True)
         return Response(serializer.data)
 
 
