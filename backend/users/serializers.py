@@ -56,15 +56,6 @@ class UserProfileSerializer(serializers.ModelSerializer):
         return obj.following.count()
 
     def get_ifollow(self, obj):
-
-        allusers = obj.followed.all()
-
-        currentuser = self.context.get('user')
-        print('current user')
-        print(currentuser)
-        print('allusers')
-        print(allusers)
-
         return True if self.context.get('user') in obj.followed.all() else False
 
 

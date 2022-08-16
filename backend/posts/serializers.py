@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Post
+from .models import Post, Comment
 from users.models import User
 from users.serializers import UserProfileSerializer, UserSerializer
 
@@ -18,6 +18,7 @@ class PostSerializer(serializers.ModelSerializer):
         return obj.liked.count()
 
     def get_iliked(self, obj):
+
         return True if self.context.get('user') in obj.liked.all() else False
 
 
@@ -27,4 +28,11 @@ class PostViewSetSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Post
+        fields = '__all__'
+
+
+class CommentSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Comment
         fields = '__all__'
