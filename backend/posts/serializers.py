@@ -9,6 +9,7 @@ class PostSerializer(serializers.ModelSerializer):
     like_count = serializers.SerializerMethodField(read_only=True)
     liked = UserSerializer(many=True, read_only=True)
     iliked = serializers.SerializerMethodField(read_only=True)
+    comment_count = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = Post
@@ -18,8 +19,10 @@ class PostSerializer(serializers.ModelSerializer):
         return obj.liked.count()
 
     def get_iliked(self, obj):
-
         return True if self.context.get('user') in obj.liked.all() else False
+
+    def get_comment_count(self, obj):
+        return obj.parent_post.count()
 
 
 class PostViewSetSerializer(serializers.ModelSerializer):
@@ -35,6 +38,7 @@ class CommentSerializer(serializers.ModelSerializer):
     author = UserSerializer(read_only=True)
     iliked = serializers.SerializerMethodField(read_only=True)
     like_count = serializers.SerializerMethodField(read_only=True)
+    created = serializers.DateTimeField(format='%B %d %Y %I:%M %p')
 
     class Meta:
         model = Comment

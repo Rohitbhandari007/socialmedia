@@ -30,7 +30,7 @@ class Comment(models.Model):
     author = models.ForeignKey(
         User, related_name="authors", on_delete=models.CASCADE)
     post = models.ForeignKey(
-        Post, related_name="parent_tweet", on_delete=models.CASCADE)
+        Post, related_name="parent_post", on_delete=models.CASCADE)
     created = models.DateTimeField(
         auto_now_add=True)
     isEdited = models.BooleanField(default=False, blank=True, null=True)

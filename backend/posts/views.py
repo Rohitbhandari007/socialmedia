@@ -112,7 +112,7 @@ class ListComment(APIView):
 
         pk = request.data.get('pk')
         post = self.get_object(pk=pk)
-        comments = Comment.objects.filter(post=post)
+        comments = Comment.objects.filter(post=post).order_by('-id')
         context = {'user': request.user}
 
         serializer = CommentSerializer(comments, many=True, context=context)
