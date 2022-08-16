@@ -87,23 +87,33 @@ class CommentView(APIView):
         post = Post.objects.get(id=pk)
         return post
 
-    def get(self, request):
-        pk = request.data.get('pk')
-        print('post id : ')
-        print(pk)
-        post = self.get_object(pk=pk)
-        comments = Comment.objects.filter(post=post)
-        serializer = CommentSerializer(comments, many=True)
-        return Response(serializer.data)
-
     def post(self, request):
         pk = request.data.get('pk')
         body = request.data.get('body')
+
         post = self.get_object(pk=pk)
+
+        context = {'user': request.user}
 
         if len(body) < 1:
             raise exceptions.APIException('Can not be blank')
         new_comment = Comment(body=body, author=request.user, post=post)
         new_comment.save()
-        serializer = CommentSerializer(new_comment)
+        serializer = CommentSerializer(new_comment, context=context)
+        return Response(serializer.data)
+
+
+class ListComment(APIView):
+    def get_object(self, pk):
+        post = Post.objects.get(id=pk)
+        return post
+
+    def post(self, request):
+
+        pk = request.data.get('pk')
+        post = self.get_object(pk=pk)
+        comments = Comment.objects.filter(post=post)
+        context = {'user': request.user}
+
+        serializer = CommentSerializer(comments, many=True, context=context)
         return Response(serializer.data)
