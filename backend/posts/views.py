@@ -1,12 +1,13 @@
-from rest_framework.response import Response
-from rest_framework.decorators import api_view
-from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
-from rest_framework import viewsets, status, exceptions
-from .permissions import OnlyAuthor
+from rest_framework import exceptions, status, viewsets
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
-from .models import Post, Comment
-from .serializers import PostSerializer, PostViewSetSerializer, CommentSerializer
+from .models import Comment, Post
+from .permissions import OnlyAuthor
+from .serializers import (CommentSerializer, PostSerializer,
+                          PostViewSetSerializer)
 
 
 @api_view(['GET'])

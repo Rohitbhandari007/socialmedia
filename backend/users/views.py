@@ -1,14 +1,21 @@
-from rest_framework.response import Response
-from rest_framework import status
-from users.serializers import UserRegestrationSerializer, UserLoginSerializer, UserProfileSerializer, UserChangePasswordSerializer, SendPasswordResetEmailSerializer, UserPasswordResetSerializer, UserSerializer
-from rest_framework.views import APIView
-from users.renderers import UserRenderer
-from rest_framework_simplejwt.tokens import RefreshToken
-from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth import authenticate
+from rest_framework import status
 from rest_framework.filters import SearchFilter
-from .models import User
 from rest_framework.generics import ListAPIView
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework_simplejwt.tokens import RefreshToken
+from users.renderers import UserRenderer
+from users.serializers import (SendPasswordResetEmailSerializer,
+                               UserChangePasswordSerializer,
+                               UserLoginSerializer,
+                               UserPasswordResetSerializer,
+                               UserProfileSerializer,
+                               UserRegestrationSerializer, UserSerializer)
+
+from .models import User
+
 # Custom tokens
 
 
